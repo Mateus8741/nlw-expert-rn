@@ -1,4 +1,6 @@
+import { Button } from '@/components/button'
 import { FormatCurrency, PRODUCTS } from '@/utils'
+import { Feather } from '@expo/vector-icons'
 
 import { useLocalSearchParams } from 'expo-router'
 import React from 'react'
@@ -36,6 +38,16 @@ export default function Product() {
             {ingredient}
           </Text>
         ))}
+      </View>
+
+      <View className="p-5 pb-8 gap-5">
+        <Button>
+          <Button.Icon>
+            <Feather name="plus-circle" size={20} color="black" />
+          </Button.Icon>
+
+          <Button.Text>Adicionar ao carrinho</Button.Text>
+        </Button>
       </View>
     </View>
   )
