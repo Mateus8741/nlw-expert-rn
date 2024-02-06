@@ -1,15 +1,10 @@
-import { Text, View } from 'react-native'
+import { Header } from '@/components/header'
+import { View } from 'react-native'
 
 export default function Home() {
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <Text>Home</Text>
+    <View className="flex-1 items-center justify-center bg-slate-950">
+      <Header title="Cardápio" cartQuantity={1} />
     </View>
   )
 }
