@@ -27,7 +27,7 @@ export default function Home() {
 
   return (
     <View className="flex-1 bg-slate-950">
-      <Header title="Cardápio" cartQuantity={1} />
+      <Header title="Cardápio" />
 
       <FlatList
         data={CATEGORIES}
