@@ -22,6 +22,20 @@ export default function Product() {
         <Text className="text-lime-400 text-2xl font-heading my-2">
           {FormatCurrency(product.price)}
         </Text>
+
+        <Text className="text-slate-400 text-base font-body leading-6 mb-6">
+          {product.description}
+        </Text>
+
+        {product.ingredients.map((ingredient) => (
+          <Text
+            key={ingredient}
+            className="text-slate-400 text-base font-body leading-6"
+          >
+            {'\u2022'}
+            {ingredient}
+          </Text>
+        ))}
       </View>
     </View>
   )
