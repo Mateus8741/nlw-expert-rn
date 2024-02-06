@@ -1,6 +1,8 @@
 import { ProductProps } from '@/utils'
 import { create } from 'zustand'
 
+import { Add } from './helpers/cartInMemory'
+
 export type ProductCartProps = ProductProps & {
   quantity: number
 }
@@ -16,24 +18,7 @@ export const useCarStore = create<StateProps>((set) => ({
   products: [],
   addProduct: (product) =>
     set((state) => {
-      const productIndex = state.products.findIndex(
-        (cartProduct) => cartProduct.id === product.id,
-      )
-
-      if (productIndex === -1) {
-        return {
-          products: [...state.products, { ...product, quantity: 1 }],
-        }
-      }
-
-      const newProducts = state.products.map((cartProduct, index) => {
-        if (index === productIndex) {
-          return { ...cartProduct, quantity: cartProduct.quantity + 1 }
-        }
-
-        return cartProduct
-      })
-
+      const newProducts = Add(state.products, product)
       return { products: newProducts }
     }),
   removeProduct: (id) =>

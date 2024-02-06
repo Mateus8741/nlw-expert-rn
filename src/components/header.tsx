@@ -10,6 +10,8 @@ type HeaderProps = {
 export function Header({ title }: HeaderProps) {
   const { products } = useCarStore()
 
+  console.log(products)
+
   const cartQuantityTotal = products.reduce(
     (total, product) => total + product.quantity,
     0,
