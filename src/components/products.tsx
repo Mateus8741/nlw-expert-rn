@@ -1,37 +1,42 @@
-import React from 'react'
-import * as reactNative from 'react-native'
+/* eslint-disable react/display-name */
+import React, { forwardRef } from 'react'
+
+import * as RN from 'react-native'
 
 type ProductDataProps = {
   title: string
   description: string
-  thumbnail: reactNative.ImageProps
+  thumbnail: RN.ImageProps
 }
 
-type ProductProps = reactNative.TouchableOpacityProps & {
+type ProductProps = RN.TouchableOpacityProps & {
   data: ProductDataProps
 }
 
-export function Products({ data, ...rest }: ProductProps) {
-  return (
-    <reactNative.TouchableOpacity
-      className="w-full flex-row items-center pb-4"
-      {...rest}
-    >
-      <reactNative.Image
-        source={data.thumbnail}
-        className="w-20 h-20 rounded-md"
-        alt=""
-      />
+export const Products = forwardRef<RN.TouchableOpacity, ProductProps>(
+  ({ data, ...rest }, ref) => {
+    return (
+      <RN.TouchableOpacity
+        ref={ref}
+        className="w-full flex-row items-center pb-4"
+        {...rest}
+      >
+        <RN.Image
+          source={data.thumbnail}
+          className="w-20 h-20 rounded-md"
+          alt=""
+        />
 
-      <reactNative.View className="flex-1 ml-3">
-        <reactNative.Text className="text-slate-100 font-subtitle text-base flex-1">
-          {data.title}
-        </reactNative.Text>
+        <RN.View className="flex-1 ml-3">
+          <RN.Text className="text-slate-100 font-subtitle text-base flex-1">
+            {data.title}
+          </RN.Text>
 
-        <reactNative.Text className="text-slate-400 text-xs leading-5 m5-0.5">
-          {data.description}
-        </reactNative.Text>
-      </reactNative.View>
-    </reactNative.TouchableOpacity>
-  )
-}
+          <RN.Text className="text-slate-400 text-xs leading-5 m5-0.5">
+            {data.description}
+          </RN.Text>
+        </RN.View>
+      </RN.TouchableOpacity>
+    )
+  },
+)
