@@ -1,7 +1,7 @@
 import { ProductProps } from '@/utils'
 import { create } from 'zustand'
 
-import { Add } from './helpers/cartInMemory'
+import { Add, Remove } from './helpers/cartInMemory'
 
 export type ProductCartProps = ProductProps & {
   quantity: number
@@ -23,7 +23,7 @@ export const useCarStore = create<StateProps>((set) => ({
     }),
   removeProduct: (id) =>
     set((state) => ({
-      products: state.products.filter((product) => product.id !== id),
+      products: Remove(state.products, id),
     })),
   clearCart: () => set({ products: [] }),
 }))
