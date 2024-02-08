@@ -1,4 +1,4 @@
-import { Header, Products } from '@/components'
+import { Header, Products, TextInput } from '@/components'
 import { useCarStore } from '@/stores'
 import { FormatCurrency } from '@/utils'
 import { FlatList, Text, View } from 'react-native'
@@ -37,9 +37,10 @@ export default function Cart() {
           className="pb-8"
         />
 
+        <TextInput />
+
         <View className="flex-row gap-2 items-center mt-5 mb-4">
           <Text className="text-white text-xl font-subtitle">Total: </Text>
-
           <Text className="text-lime-400 text-2xl font-bold">{total}</Text>
         </View>
       </View>

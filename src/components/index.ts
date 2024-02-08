@@ -5,4 +5,5 @@ export * from './header';
 export * from './link-button';
 export * from './loading';
 export * from './products';
+export * from './text-input';
 
