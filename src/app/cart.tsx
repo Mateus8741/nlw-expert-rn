@@ -2,11 +2,19 @@ import { Button, Header, LinkButton, Products, TextInput } from '@/components'
 import { useCarStore } from '@/stores'
 import { FormatCurrency, ProductProps } from '@/utils'
 import { Feather } from '@expo/vector-icons'
-import { Alert, ScrollView, Text, View } from 'react-native'
+import { useNavigation } from 'expo-router'
+import { useState } from 'react'
+import { Alert, Linking, ScrollView, Text, View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
+const PHONE_NUMBER = '5588981321566'
+
 export default function Cart() {
-  const { products, removeProduct } = useCarStore()
+  const [address, setAddress] = useState('')
+
+  const { products, removeProduct, clearCart } = useCarStore()
+
+  const { goBack } = useNavigation()
 
   const total = FormatCurrency(
     products.reduce((acc, p) => acc + p.price * p.quantity, 0),
@@ -30,6 +38,34 @@ export default function Cart() {
         },
       ],
     )
+  }
+
+  function handleOrder() {
+    if (address.trim().length === 0) {
+      return Alert.alert('Endereço de entrega', 'Informe o endereço de entrega')
+    }
+
+    const productsOrder = products
+      .map(
+        (p) =>
+          `\n${p.title} - ${p.quantity} und(s) - ${FormatCurrency(p.price)}`,
+      )
+      .join('')
+
+    const message = `
+    NOVO PEDIDO
+    \nEndereço de entrega: ${address}
+
+    ${productsOrder}
+    
+    \nTotal: ${total}`
+
+    Linking.openURL(
+      `http://api.whatsapp.com:/send?phone=${PHONE_NUMBER}&text=${message}`,
+    )
+
+    clearCart()
+    goBack()
   }
 
   return (
@@ -59,7 +95,11 @@ export default function Cart() {
               </Text>
             )}
 
-            <TextInput placeholder="Informe o enfderço de entrega com rua, número e bairro e complemento" />
+            <TextInput
+              placeholder="Informe o enfderço de entrega com rua, número e bairro e complemento"
+              value={address}
+              onChangeText={setAddress}
+            />
           </View>
         </ScrollView>
       </KeyboardAwareScrollView>
@@ -70,7 +110,7 @@ export default function Cart() {
       </View>
 
       <View className="p-5 gap-5">
-        <Button>
+        <Button onPress={handleOrder}>
           <Button.Text>Enviar pedido</Button.Text>
           <Button.Icon>
             <Feather name="arrow-right-circle" size={20} />
